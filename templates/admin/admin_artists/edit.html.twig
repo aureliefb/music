@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupes{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h2>Modifier le groupe / l'artiste <i>{{ band.artist }}</i></h2>
+        {{ include('admin/admin_artists/_form.html.twig', {button: 'Modifier'}) }}
+
+    </div>
+{% endblock %}
