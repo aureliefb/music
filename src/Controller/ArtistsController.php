@@ -21,7 +21,7 @@ class ArtistsController extends AbstractController
     #[Route('/artists', name: 'app_groupes')]
     public function index(): Response
     {
-        $bands = $this->repo->findAll();
+        $bands = $this->repo->findBy(array(), array('artist'=>'ASC'));
         return $this->render('artists/index.html.twig', [
             'bands' => $bands,
         ]);

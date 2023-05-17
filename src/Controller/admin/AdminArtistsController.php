@@ -20,13 +20,13 @@ class AdminArtistsController extends AbstractController
     #[Route('/afadmin/artists', name: 'admin_groupes_index')]
     public function index(): Response
     {
-        $bands = $this->repo->findAll();
+        $bands = $this->repo->findBy(array(), array('artist'=>'ASC'));
         return $this->render('admin/admin_artists/index.html.twig', [
             'bands' => $bands,
         ]);
     }
 
-    #[Route('/afadmin/artists/{id}', name: 'admin_groupes_edit', methods: ['GET', 'POST'])]
+    #[Route('/afadmin/artists/edit/{id}', name: 'admin_groupes_edit', methods: ['GET', 'POST'])]
     public function edit(Artists $bands, Request $request) {
         $form_edit = $this->createForm(ArtistType::class, $bands);
         $form_edit->handleRequest($request);
@@ -52,14 +52,13 @@ class AdminArtistsController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('admin_groupes_index');
         }
-
         return $this->render('admin/admin_artists/new.html.twig', [
             'band' => $band,
             'form' => $form_new->createView()
         ]);
     }
 
-    #[Route('/afadmin/artists/{id}', name: 'admin_groupes_delete', methods: ['DELETE'])]
+    #[Route('/afadmin/artists/del/{id}', name: 'admin_groupes_delete', methods: ['DELETE'])]
     public function delete(Artists $bands, Request $request) {
         if($this->isCsrfTokenValid('delete'.$bands->getId(), $request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
