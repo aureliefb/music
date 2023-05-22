@@ -3,18 +3,28 @@
 namespace App\Form;
 
 use App\Entity\Artists;
+use App\Repository\MusicStylesRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ArtistType extends AbstractType
 {
+    private $repo;
+
+    public function __construct(MusicStylesRepository $repo) {
+        $this->repo =  $repo;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('artist')
-            ->add('id_music_styles', null, ['label' => 'Style'])
-        ;
+            ->add('artist', null, ['label' => 'Saisir un artiste'])
+            ->add('id_music_styles', ChoiceType::class, [
+                'label' => 'Choisir un style',
+                'choices' => $this->repo->getChoices()
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -24,4 +34,6 @@ class ArtistType extends AbstractType
             'translation_domain' => 'forms'
         ]);
     }
+
+
 }

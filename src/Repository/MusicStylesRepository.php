@@ -39,6 +39,20 @@ class MusicStylesRepository extends ServiceEntityRepository
         }
     }
 
+    public function getChoices() {
+        $choices = $this->createQueryBuilder('m')
+            ->select('m.id_music_styles', 'm.music_style')
+            ->orderBy('m.music_style', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        $arr = [];
+        foreach ($choices as $k => $v) {
+            $arr[$v["music_style"]] = $v["id_music_styles"];
+        }
+        return $arr;
+    }
+
 //    /**
 //     * @return MusicStyles[] Returns an array of MusicStyles objects
 //     */

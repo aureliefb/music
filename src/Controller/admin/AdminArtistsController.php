@@ -3,8 +3,11 @@
 namespace App\Controller\admin;
 
 use App\Entity\Artists;
+//use App\Entity\MusicStyles;
 use App\Form\ArtistType;
+use App\Form\MusicStyleType;
 use App\Repository\ArtistsRepository;
+use App\Repository\MusicStylesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,8 +16,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminArtistsController extends AbstractController
 {
 
-    public function __construct(ArtistsRepository $repo) {
+    public function __construct(ArtistsRepository $repo, MusicStylesRepository $repo_styles) {
         $this->repo = $repo;
+        $this->repo_styles = $repo_styles;
     }
 
     #[Route('/afadmin/artists', name: 'admin_groupes_index')]
@@ -35,6 +39,8 @@ class AdminArtistsController extends AbstractController
             $em->flush();
             return $this->redirectToRoute('admin_groupes_index');
         }
+        dump($bands);
+
         return $this->render('admin/admin_artists/edit.html.twig', [
             'band' => $bands,
             'form' => $form_edit->createView()

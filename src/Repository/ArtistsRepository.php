@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Artists;
+use App\Entity\MusicStyles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,20 +40,24 @@ class ArtistsRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Artists[] Returns an array of Artists objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+  //  /**
+  //   * @return Artists[] Returns an array of Artists objects
+  //   */
+   /* public function getArtistsAndStyles(): array
+    {
+        $db = $this->createQueryBuilder('a');
+        $query = $db->select('a', 'm')
+            ->from('artists', 'a')
+            ->leftJoin('a.id_music_styles', 'm')
+            //->andWhere('a.exampleField = :val')
+            //->setParameter('val', $value)
+            //->orderBy('a.artist', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+        return $query;
+    }*/
 
 //    public function findOneBySomeField($value): ?Artists
 //    {

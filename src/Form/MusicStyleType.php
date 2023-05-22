@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\MusicStyles;
+use App\Repository\MusicStylesRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,8 +14,7 @@ class MusicStyleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('music_style')
-        ;
+            ->add('music_style', null, ['label' => 'Saisir un style']);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -22,4 +23,5 @@ class MusicStyleType extends AbstractType
             'data_class' => MusicStyles::class,
         ]);
     }
+
 }

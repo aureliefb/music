@@ -1,11 +1,13 @@
 {{ form_start(form) }}
 <div class="row">
     <div class="col-md-5">{{ form_row(form.artist) }}</div>
-    {#% for label, value in field_choices(form.styles) %}
-                <option value="{{ value }}">{{ label }}</option>
-            {% endfor %#}
+
+    {# % for label, value in field_choices(form.musicStyle) %}
+        <option value="{{ value }}">{{ label }}</option>
+    {% endfor %#}
     <div class="col-md-4">{{ form_widget(form) }}</div>
 </div>
 
 <button class="btn btn-primary btn-sm">{{ button|default('Enregistrer') }}</button>
+<a href="{{ path('admin_groupes_index') }}" class="btn btn-secondary btn-sm">Retour</a>
 {{ form_end(form) }}

@@ -5,8 +5,10 @@ namespace App\Entity;
 use App\Repository\ArtistsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArtistsRepository::class)]
+#[UniqueEntity('artist')]
 class Artists
 {
     #[ORM\Id]
@@ -17,8 +19,8 @@ class Artists
     #[ORM\Column(type: Types::TEXT)]
     private ?string $artist = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private array $id_music_styles = [];
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $id_music_styles = null;
 
     public function getId(): ?int
     {
@@ -37,12 +39,12 @@ class Artists
         return $this;
     }
 
-    public function getIdMusicStyles(): array
+    public function getIdMusicStyles(): ?string
     {
         return $this->id_music_styles;
     }
 
-    public function setIdMusicStyles(?array $id_music_styles): self
+    public function setIdMusicStyles(string $id_music_styles): self
     {
         $this->id_music_styles = $id_music_styles;
 
