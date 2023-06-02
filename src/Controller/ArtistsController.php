@@ -3,11 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Artists;
+use App\Entity\ArtistSearch;
+use App\Form\ArtistSearchType;
 use App\Repository\ArtistsRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 class ArtistsController extends AbstractController
 {
@@ -19,11 +23,23 @@ class ArtistsController extends AbstractController
     }
 
     #[Route('/artists', name: 'app_groupes')]
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, Request $req): Response
     {
-        $bands = $this->repo->findBy(array(), array('artist'=>'ASC'));
+        $search = new ArtistSearch();
+        $form = $this->createForm(ArtistSearchType::class, $search);
+        $form->handleRequest($req);
+        $query = $this->repo->findMyChoices($search);
+        dump($search);
+        // $query ramène la recherche si critère saisi, sinon TOUS les résultats dans l'ordre alphabétique
+        $bands = $paginator->paginate(
+            $query,
+            $req->query->getInt('page', 1),
+            12
+        );
+
         return $this->render('artists/index.html.twig', [
             'bands' => $bands,
+            'form' => $form->createView()
         ]);
     }
 }

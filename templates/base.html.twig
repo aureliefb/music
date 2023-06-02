@@ -17,28 +17,28 @@
     <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Musique</a>
+            <a class="navbar-brand" href="{{ path('app_home') }}">Musique</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_groupes') }}">Groupes</a>
+                        <a class="nav-link" href="{{ path('app_groupes') }}">Artistes & Groupes</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_concerts') }}">Concerts</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_albums') }}">Discographie</a>
+                        <a class="nav-link" href="{{ path('app_albums') }}">Discothèque</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="{{ path('admin_groupes_index') }}">Groupes</a></li>
-                            <li><a class="dropdown-item" href="{{ path('admin_albums_index') }}">Discographie</a></li>
+                            <li><a class="dropdown-item" href="{{ path('admin_groupes_index') }}">Artistes & Groupes</a></li>
+                            <li><a class="dropdown-item" href="{{ path('admin_albums_index') }}">Discothèque</a></li>
                             <li><a class="dropdown-item" href="{{ path('admin_concerts_index') }}">Concerts</a></li>
-                            <li><a class="dropdown-item" href="{{ path('admin_styles_index') }}">Styles</a></li>
+                            <li><a class="dropdown-item" href="{{ path('admin_styles_index') }}">Styles de musique</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -58,8 +58,49 @@
         </div>
     </nav>
 
+    {% block body %}
+        <div class="container">
+            <div class="mt-4 mb-5 text-center">
+                <h1><span>img music</span> Musique <span>img music</span></h1>
+            </div>
 
+            <div class="row flex justify-content-center">            
+                <div class="mt-5 col-xs-4 col-md-4 col-lg-3">
+                    <a href="{{ path('app_groupes') }}">
+                    <div class="card py-5 text-center">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h2>Artistes</h2>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                <div class="mt-5 col-xs-4 col-md-4 col-lg-3">
+                    <a href="{{ path('app_concerts') }}">
+                    <div class="card py-5 text-center">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h2>Concerts</h2>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>
+                <div class="mt-5 col-xs-4 col-md-4 col-lg-3">
+                    <a href="{{ path('app_albums') }}">
+                    <div class="card py-5 text-center">
+                        <div class="card-body">
+                            <div class="card-title">
+                                <h2>Discothèque</h2>
+                            </div>
+                        </div>
+                    </div>
+                    </a>
+                </div>            
+            </div>
 
-        {% block body %}{% endblock %}
+        </div>
+    {% endblock %}
     </body>
 </html>

@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1>Gestion des groupes</h1>
+        <h1>Gestion des artistes & groupes</h1>
 
         <div class="my-4">
             <a href="{{ path('admin_groupes_new') }}"><button type="submit" class="btn btn-sm btn-success">Nouveau</button></a>
@@ -14,7 +14,7 @@
             <thead>
             <tr>
                 {# <td>id</td> #}
-                <td>Nom du groupe (ASC)</td>
+                <td>Nom artiste /groupe (ASC)</td>
                 <td>Styles</td>
                 <td>Actions</td>
             </tr>
@@ -39,5 +39,8 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="pagination">
+            {{ knp_pagination_render(bands) }}
+        </div>
     </div>
 {% endblock %}

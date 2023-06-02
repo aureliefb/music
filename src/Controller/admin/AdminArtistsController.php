@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 class AdminArtistsController extends AbstractController
 {
@@ -22,9 +23,14 @@ class AdminArtistsController extends AbstractController
     }
 
     #[Route('/afadmin/artists', name: 'admin_groupes_index')]
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, Request $req): Response
     {
-        $bands = $this->repo->findBy(array(), array('artist'=>'ASC'));
+        //$bands = $this->repo->findBy(array(), array('artist'=>'ASC'));
+        $bands = $paginator->paginate(
+            $this->repo->findBy(array(), array('artist'=>'ASC')),
+            $req->query->getInt('page', 1),
+            6
+        );
         return $this->render('admin/admin_artists/index.html.twig', [
             'bands' => $bands,
         ]);

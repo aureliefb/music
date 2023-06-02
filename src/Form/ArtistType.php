@@ -6,6 +6,7 @@ use App\Entity\Artists;
 use App\Repository\MusicStylesRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,6 +25,10 @@ class ArtistType extends AbstractType
             ->add('id_music_styles', ChoiceType::class, [
                 'label' => 'Choisir un style',
                 'choices' => $this->repo->getChoices()
+            ])
+            ->add('imageFile', FileType::class, [
+                'label' => 'Charger une image',
+                'required' => false
             ]);
     }
 

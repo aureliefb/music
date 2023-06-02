@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Artists;
+use App\Entity\ArtistSearch;
 use App\Entity\MusicStyles;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,6 +41,30 @@ class ArtistsRepository extends ServiceEntityRepository
         }
     }
 
+    public function findMyChoices(ArtistSearch $search) {
+        $query =  $this->createQueryBuilder('a');
+
+        if($search->getArtistName()) {
+            $query = $query
+                ->andWhere("a.artist like concat('%', :name, '%')")
+                ->setParameter(":name", $search->getArtistName())
+                ->orderBy('a.artist', 'ASC');
+        } 
+        if($search->getMusicStyle()) {
+            $query = $query
+                //->addSelect('ms')
+                //->leftJoin('a.id_music_styles', 'id_music_styles', 'WITH', 'id_music_styles = :id')
+                ->andWhere('a.id_music_styles = :id')
+                ->setParameter(':id', $search->getMusicStyle())
+                ->orderBy('a.artist', 'ASC')
+                ;
+        }
+        /*else {
+            $query = $query->orderBy('a.artist', 'ASC');
+        }*/
+        return $query->getQuery();
+    }
+
   //  /**
   //   * @return Artists[] Returns an array of Artists objects
   //   */
@@ -59,13 +84,16 @@ class ArtistsRepository extends ServiceEntityRepository
         return $query;
     }*/
 
-//    public function findOneBySomeField($value): ?Artists
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+   /*private function findOneArtist($value): QueryBuilder
+   {
+       return $this->createQueryBuilder('a')
+           ->andWhere('a.artist = :val')
+           ->setParameter('val', $value)
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+   }*/
+
+
+
 }

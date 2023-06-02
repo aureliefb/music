@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 class AdminMusicStylesController extends AbstractController
 {
@@ -17,9 +18,14 @@ class AdminMusicStylesController extends AbstractController
     }
 
     #[Route('/afadmin/styles', name: 'admin_styles_index')]
-    public function index(): Response
+    public function index(PaginatorInterface $paginator, Request $req): Response
     {
-        $styles = $this->repo->findBy(array(), array('music_style'=>'ASC'));
+        //$styles = $this->repo->findBy(array(), array('music_style'=>'ASC'));
+        $styles = $paginator->paginate(
+            $this->repo->findBy(array(), array('music_style'=>'ASC')),
+            $req->query->getInt('page', 1),
+            6
+        );
         return $this->render('admin/admin_music_styles/index.html.twig', [
             'styles' => $styles
         ]);
