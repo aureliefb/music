@@ -22,12 +22,13 @@ class ArtistType extends AbstractType
     {
         $builder
             ->add('artist', null, ['label' => 'Saisir un artiste'])
-            ->add('id_music_styles', ChoiceType::class, [
+            ->add('id_style', ChoiceType::class, [
                 'label' => 'Choisir un style',
                 'choices' => $this->repo->getChoices()
             ])
-            ->add('imageFile', FileType::class, [
+            ->add('filename', FileType::class, [
                 'label' => 'Charger une image',
+                'mapped' => false,
                 'required' => false
             ]);
     }

@@ -8,11 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
+//use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ArtistsRepository::class)]
 #[UniqueEntity('artist')]
-#[Vich\Uploadable]
+//#[Vich\Uploadable]
 class Artists
 {
     #[ORM\Id]
@@ -23,17 +23,20 @@ class Artists
     #[ORM\Column(type: Types::TEXT, nullable: true, length: 255)]
     private ?string $filename = null;
 
-    #[Vich\UploadableField(mapping: 'artists_img', fileNameProperty: 'filename')]
-    private ?File $imageFile = null;
+    //#[Vich\UploadableField(mapping: 'artists_img', fileNameProperty: 'filename')]
+    //private ?File $imageFile = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $artist = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $id_music_styles = null;
+    //#[ORM\Column(type: Types::TEXT, nullable: true)]
+    //private ?string $id_music_styles = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updated_at = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $id_style = null;
 
     public function getId(): ?int
     {
@@ -51,7 +54,7 @@ class Artists
         return $this;
     }
 
-    public function getIdMusicStyles(): ?string
+    /*public function getIdMusicStyles(): ?string
     {
         return $this->id_music_styles;
     }
@@ -60,7 +63,7 @@ class Artists
     {
         $this->id_music_styles = $id_music_styles;
         return $this;
-    }
+    }*/
 
     public function getFilename(): ?string
     {
@@ -73,7 +76,7 @@ class Artists
         return $this;
     }
 
-    public function getImageFile(): ?File
+    /*public function getImageFile(): ?File
     {
         return $this->imageFile;
     }
@@ -85,7 +88,7 @@ class Artists
             $this->updated_at = new \DateTimeImmutable('now');
         }
         return $this;
-    }
+    }*/
 
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
@@ -95,6 +98,17 @@ class Artists
     public function setUpdatedAt(\DateTimeImmutable $updated_at): self
     {
         $this->updated_at = $updated_at;
+        return $this;
+    }
+
+    public function getIdStyle(): ?int
+    {
+        return $this->id_style;
+    }
+
+    public function setIdStyle(?int $id_style): self
+    {
+        $this->id_style = $id_style;
         return $this;
     }
 

@@ -26,7 +26,7 @@
                     <td>{{ band.artist }}</td>
                     <td>{# { band.IdMusicStyles }#}</td>
                     <td>
-                        <button type="button" class="btn btn-primary btn-sm">Voir</button>
+                        <a href="{{ path('app_groupes_show', {id:band.id}) }}"><button type="button" class="btn btn-primary btn-sm">Voir</button></a>
                         <a href="{{ path('admin_groupes_edit', {id:band.id}) }}"><button class="btn btn-warning btn-sm">Editer</button></a>
                         <form method="post" action="{{ path('admin_groupes_delete', {id:band.id}) }}" style="display:inline-block;">
                             <input type="hidden" name="_method" value="DELETE">

@@ -26,17 +26,26 @@
     <div class="row flex">
         {% for band in bands %}
         <div class="my-2 col-xs-4 col-md-4 col-lg-3">
-            <div class="card">
+            <a href="{{ path('app_groupes_show', {id:band.id}) }}">
+            <!-- modifier le css pour ne pas avoir les textes soulignés en bleu -->
+            <div class="card" style="color: #000;">
                 <div class="card-body">
                     <div class="card-title">
                         <p>{{ band.artist }}</p>
                     </div>
                     <div class="card-text">
+                    <p>
                         {# mettre les styles dans des badges de couleur #}
-                        <p>style</p>
+                        {% if band.idStyle %}
+                            {{ band.idStyle }} ->  style 
+                        {% else %}
+                            style
+                        {% endif %}
+                    </p>
                     </div>
                 </div>
             </div>
+            </a>
         </div>
         {% endfor %}
     </div>

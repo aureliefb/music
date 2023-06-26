@@ -9,10 +9,12 @@ use App\Form\MusicStyleType;
 use App\Repository\ArtistsRepository;
 use App\Repository\MusicStylesRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class AdminArtistsController extends AbstractController
 {
@@ -37,15 +39,40 @@ class AdminArtistsController extends AbstractController
     }
 
     #[Route('/afadmin/artists/edit/{id}', name: 'admin_groupes_edit', methods: ['GET', 'POST'])]
-    public function edit(Artists $bands, Request $request) {
+    public function edit(Artists $bands, Request $request, SluggerInterface $slugger) {
         $form_edit = $this->createForm(ArtistType::class, $bands);
         $form_edit->handleRequest($request);
         if($form_edit->isSubmitted() && $form_edit->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-            return $this->redirectToRoute('admin_groupes_index');
+            $imgFile = $form_edit->get('filename')->getData();
+            //dump($imgFile);
+
+            if($imgFile) {
+                $nameFile = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($nameFile);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imgFile->guessExtension();
+                
+                // Move the file to the directory where brochures are stored
+                try {
+                    $imgFile->move(
+                        $this->getParameter('images_dir'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file upload
+                }
+                $bands->setFilename($newFilename);
+                
+                /*$date = new DateTimeImmutable(date('Y-m-d H:i:s'));
+                $bands->setUpdatedAt($date->format('Y-m-d H:i:s'));*/
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($bands);
+                $em->flush();
+                return $this->redirectToRoute('admin_groupes_index');
+            }
+        } else {
+            dump('là');
         }
-        dump($bands);
 
         return $this->render('admin/admin_artists/edit.html.twig', [
             'band' => $bands,

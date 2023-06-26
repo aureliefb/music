@@ -28,18 +28,26 @@ class ArtistsController extends AbstractController
         $search = new ArtistSearch();
         $form = $this->createForm(ArtistSearchType::class, $search);
         $form->handleRequest($req);
-        $query = $this->repo->findMyChoices($search);
-        dump($search);
-        // $query ramène la recherche si critère saisi, sinon TOUS les résultats dans l'ordre alphabétique
+        $query = $this->repo->findMyChoice($search);
+        //dump($query);
         $bands = $paginator->paginate(
             $query,
             $req->query->getInt('page', 1),
             12
         );
-
+        dump($bands);
         return $this->render('artists/index.html.twig', [
             'bands' => $bands,
             'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/artists/{id}', name: 'app_groupes_show')]
+    public function show(Artists $band, PaginatorInterface $paginator, Request $req): Response
+    {
+        
+        return $this->render('artists/show.html.twig', [
+            'band' => $band
         ]);
     }
 }

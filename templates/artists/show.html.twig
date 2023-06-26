@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Page {{ band.artist }} {% endblock %}
+
+{% block body %}
+
+<div class="container" style="border:1px solid grey;">
+    <div class="my-5 row col-lg-12 col-md-12 col-sm-12 text-center" style="justify-content: space-evenly;">
+    	<div class="col-auto mb-3">
+    		<img src="{{ asset('images/artists/' ~ band.filename) }}" alt="photo {{ band.artist }}" width="300px"/>
+    	</div>
+		<div class="col-auto text-center">
+    		<h1>{{ band.artist }}</h1>
+    		<span class="mx-3">Style : {{ band.idStyle }}</span>
+    		<span class="mx-3">Pays : Islande</span>
+    	</div>
+    </div>
+
+
+
+</div>
+
+{% endblock %}

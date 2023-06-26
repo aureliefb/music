@@ -5,8 +5,8 @@
     {# % for label, value in field_choices(form.musicStyle) %}
         <option value="{{ value }}">{{ label }}</option>
     {% endfor %#}
-    <div class="col-md-4">{{ form_row(form.id_music_styles) }}</div>
-    <div class="col-md-4">{{ form_row(form.imageFile) }}</div>
+    <div class="col-md-4">{{ form_row(form.id_style) }}</div>
+    <div class="col-md-4">{{ form_row(form.filename) }}</div>
 </div>
 
 <button class="btn btn-primary btn-sm">{{ button|default('Enregistrer') }}</button>

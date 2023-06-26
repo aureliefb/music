@@ -33,7 +33,8 @@ class ArtistSearchType extends AbstractType
                 'required' => false,
                 'label' => false,
                 'choices' => $this->repo->getChoices(),
-                'placeholder' => 'Choisir un style'              
+                'placeholder' => 'Choisir un style'
+                
             ])
         ;
     }

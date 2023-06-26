@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\Query\Expr\Join;
 use App\Entity\Artists;
 use App\Entity\ArtistSearch;
 use App\Entity\MusicStyles;
@@ -41,27 +43,26 @@ class ArtistsRepository extends ServiceEntityRepository
         }
     }
 
-    public function findMyChoices(ArtistSearch $search) {
+    public function findMyChoice(ArtistSearch $search) {
         $query =  $this->createQueryBuilder('a');
 
-        if($search->getArtistName()) {
-            $query = $query
-                ->andWhere("a.artist like concat('%', :name, '%')")
-                ->setParameter(":name", $search->getArtistName())
-                ->orderBy('a.artist', 'ASC');
-        } 
-        if($search->getMusicStyle()) {
-            $query = $query
-                //->addSelect('ms')
-                //->leftJoin('a.id_music_styles', 'id_music_styles', 'WITH', 'id_music_styles = :id')
-                ->andWhere('a.id_music_styles = :id')
-                ->setParameter(':id', $search->getMusicStyle())
-                ->orderBy('a.artist', 'ASC')
-                ;
-        }
-        /*else {
+        if($search->getArtistName() != '' || $search->getMusicStyle() != '') {
+            if($search->getArtistName()) {
+                $query = $query
+                    ->leftJoin('App\Entity\MusicStyles', 'm', Join::WITH, 'm.id_music_styles = a.id_style')
+                    ->where("a.artist like concat('%', :name, '%')")
+                    ->setParameter(":name", $search->getArtistName())
+                    ->orderBy('a.artist', 'ASC');
+            } 
+            if($search->getMusicStyle()) {
+                $query = $query
+                    ->andWhere('a.id_style = :id')
+                    ->setParameter(':id', $search->getMusicStyle())
+                    ->orderBy('a.artist', 'ASC');
+            }
+        } else {
             $query = $query->orderBy('a.artist', 'ASC');
-        }*/
+        }
         return $query->getQuery();
     }
 
