@@ -32,8 +32,8 @@ class Artists
     //#[ORM\Column(type: Types::TEXT, nullable: true)]
     //private ?string $id_music_styles = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updated_at = null;
+    /*#[ORM\Column]
+    private ?DateTime $updated_at = null;*/
 
     #[ORM\Column(nullable: true)]
     private ?int $id_style = null;
@@ -90,16 +90,16 @@ class Artists
         return $this;
     }*/
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    /*public function getUpdatedAt(): ?DateTime
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updated_at): self
+    public function setUpdatedAt(?DateTime $updated_at): self
     {
         $this->updated_at = $updated_at;
         return $this;
-    }
+    }*/
 
     public function getIdStyle(): ?int
     {

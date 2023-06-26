@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class AdminArtistsController extends AbstractController
 {
@@ -44,8 +45,6 @@ class AdminArtistsController extends AbstractController
         $form_edit->handleRequest($request);
         if($form_edit->isSubmitted() && $form_edit->isValid()) {
             $imgFile = $form_edit->get('filename')->getData();
-            //dump($imgFile);
-
             if($imgFile) {
                 $nameFile = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($nameFile);
@@ -60,18 +59,16 @@ class AdminArtistsController extends AbstractController
                 } catch (FileException $e) {
                     // ... handle exception if something happens during file upload
                 }
+
                 $bands->setFilename($newFilename);
-                
-                /*$date = new DateTimeImmutable(date('Y-m-d H:i:s'));
-                $bands->setUpdatedAt($date->format('Y-m-d H:i:s'));*/
+                //$bands->setIdStyle();
+                //$bands->setUpdatedAt();
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($bands);
                 $em->flush();
                 return $this->redirectToRoute('admin_groupes_index');
             }
-        } else {
-            dump('là');
         }
 
         return $this->render('admin/admin_artists/edit.html.twig', [

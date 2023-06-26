@@ -17,7 +17,7 @@
     <body>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('app_home') }}">Musique</a>
+            <a class="navbar-brand" href="{{ path('app_home') }}"><img src="{{ asset('icons/music-note-beamed.svg') }}" alt="" width="20px"/> Musique</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -27,13 +27,13 @@
                         <a class="nav-link" href="{{ path('app_groupes') }}">Artistes & Groupes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_concerts') }}">Concerts</a>
+                        <a class="nav-link" href="{{ path('app_concerts') }}"><img src="{{ asset('icons/mic.svg') }}" alt="" width="15px"/> Concerts</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_albums') }}">Discothèque</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="{{ asset('icons/tools.svg') }}" alt="" width="15px"/> Admin</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{{ path('admin_groupes_index') }}">Artistes & Groupes</a></li>
                             <li><a class="dropdown-item" href="{{ path('admin_albums_index') }}">Discothèque</a></li>
@@ -61,7 +61,13 @@
     {% block body %}
         <div class="container">
             <div class="mt-4 mb-5 text-center">
-                <h1><span>img music</span> Musique <span>img music</span></h1>
+                <h1>
+                    <span><img src="{{ asset('icons/boombox.svg') }}" alt="" width="30px"/></span>
+                    <span><img src="{{ asset('icons/volume-up-fill.svg') }}" alt="" width="30px"/></span>
+                    Musique
+                    <span><img src="{{ asset('icons/music-note-beamed.svg') }}" alt="" width="30px"/></span>
+                    <span><img src="{{ asset('icons/music-note-list.svg') }}" alt="" width="30px"/></span>
+                </h1>
             </div>
 
             <div class="row flex justify-content-center">            
@@ -70,7 +76,7 @@
                     <div class="card py-5 text-center">
                         <div class="card-body">
                             <div class="card-title">
-                                <h2>Artistes</h2>
+                                <h2>Artistes & Groupes</h2>
                             </div>
                         </div>
                     </div>
@@ -81,6 +87,7 @@
                     <div class="card py-5 text-center">
                         <div class="card-body">
                             <div class="card-title">
+                                <img src="{{ asset('icons/mic.svg') }}" alt="" width="30px"/>
                                 <h2>Concerts</h2>
                             </div>
                         </div>
