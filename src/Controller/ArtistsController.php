@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Artists;
 use App\Entity\ArtistSearch;
+use App\Entity\MusicStyles;
 use App\Form\ArtistSearchType;
 use App\Repository\ArtistsRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -36,6 +37,7 @@ class ArtistsController extends AbstractController
             12
         );
         dump($bands);
+
         return $this->render('artists/index.html.twig', [
             'bands' => $bands,
             'form' => $form->createView()
@@ -45,7 +47,6 @@ class ArtistsController extends AbstractController
     #[Route('/artists/{id}', name: 'app_groupes_show')]
     public function show(Artists $band, PaginatorInterface $paginator, Request $req): Response
     {
-        
         return $this->render('artists/show.html.twig', [
             'band' => $band
         ]);

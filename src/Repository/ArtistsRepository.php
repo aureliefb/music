@@ -49,14 +49,14 @@ class ArtistsRepository extends ServiceEntityRepository
         if($search->getArtistName() != '' || $search->getMusicStyle() != '') {
             if($search->getArtistName()) {
                 $query = $query
-                    ->leftJoin('App\Entity\MusicStyles', 'm', Join::WITH, 'm.id_music_styles = a.id_style')
+                    ->leftJoin('App\Entity\MusicStyles', 'm', Join::WITH, 'm.id_music_styles = a.id_music_styles')
                     ->where("a.artist like concat('%', :name, '%')")
                     ->setParameter(":name", $search->getArtistName())
                     ->orderBy('a.artist', 'ASC');
             } 
             if($search->getMusicStyle()) {
                 $query = $query
-                    ->andWhere('a.id_style = :id')
+                    ->andWhere('a.id_music_styles = :id')
                     ->setParameter(':id', $search->getMusicStyle())
                     ->orderBy('a.artist', 'ASC');
             }

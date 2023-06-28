@@ -3,7 +3,7 @@
 namespace App\Controller\admin;
 
 use App\Entity\Artists;
-//use App\Entity\MusicStyles;
+use App\Entity\MusicStyles;
 use App\Form\ArtistType;
 use App\Form\MusicStyleType;
 use App\Repository\ArtistsRepository;

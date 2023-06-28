@@ -29,14 +29,19 @@ class Artists
     #[ORM\Column(type: Types::TEXT)]
     private ?string $artist = null;
 
-    //#[ORM\Column(type: Types::TEXT, nullable: true)]
-    //private ?string $id_music_styles = null;
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $id_music_styles = null;
 
     /*#[ORM\Column]
     private ?DateTime $updated_at = null;*/
 
     #[ORM\Column(nullable: true)]
     private ?int $id_style = null;
+
+    #[ORM\ManyToOne(inversedBy: 'artists', targetEntity: MusicStyles::class)]
+    #[ORM\JoinColumn(nullable: false, name:'id_music_styles', referencedColumnName:'id_music_styles')]
+    private ?MusicStyles $style = null;
+    
 
     public function getId(): ?int
     {
@@ -54,7 +59,7 @@ class Artists
         return $this;
     }
 
-    /*public function getIdMusicStyles(): ?string
+    public function getIdMusicStyles(): ?string
     {
         return $this->id_music_styles;
     }
@@ -63,7 +68,7 @@ class Artists
     {
         $this->id_music_styles = $id_music_styles;
         return $this;
-    }*/
+    }
 
     public function getFilename(): ?string
     {
@@ -111,6 +116,18 @@ class Artists
         $this->id_style = $id_style;
         return $this;
     }
+
+    public function getStyle(): ?MusicStyles
+    {
+        return $this->style;
+    }
+
+    public function setStyle(?MusicStyles $style): self
+    {
+        $this->style = $style;
+        return $this;
+    }
+
 
 
 }

@@ -23,16 +23,16 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+                    <li class="nav-item text-center">
                         <a class="nav-link" href="{{ path('app_groupes') }}">Artistes & Groupes</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item text-center">
                         <a class="nav-link" href="{{ path('app_concerts') }}"><img src="{{ asset('icons/mic.svg') }}" alt="" width="15px"/> Concerts</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item text-center">
                         <a class="nav-link" href="{{ path('app_albums') }}">Discothèque</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item text-center dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="{{ asset('icons/tools.svg') }}" alt="" width="15px"/> Admin</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{{ path('admin_groupes_index') }}">Artistes & Groupes</a></li>
