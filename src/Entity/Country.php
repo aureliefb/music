@@ -2,17 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\MusicStylesRepository;
+use App\Repository\CountryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[ORM\Entity(repositoryClass: MusicStylesRepository::class)]
-#[UniqueEntity('music_style')]
-class MusicStyles
+#[ORM\Entity(repositoryClass: CountryRepository::class)]
+class Country
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -20,9 +16,12 @@ class MusicStyles
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $music_style = null;
+    private ?string $country = null;
 
-    #[ORM\OneToMany(mappedBy: 'musicStyles', targetEntity: Artists::class)]
+    #[ORM\Column(length: 10)]
+    private ?string $shortname = null;
+
+    #[ORM\OneToMany(mappedBy: 'country', targetEntity: Artists::class)]
     private Collection $artists;
 
     public function __construct()
@@ -35,14 +34,25 @@ class MusicStyles
         return $this->id;
     }
 
-    public function getMusicStyle(): ?string
+    public function getCountry(): ?string
     {
-        return $this->music_style;
+        return $this->country;
     }
 
-    public function setMusicStyle(string $music_style): self
+    public function setCountry(string $country): self
     {
-        $this->music_style = $music_style;
+        $this->country = $country;
+        return $this;
+    }
+
+    public function getShortname(): ?string
+    {
+        return $this->shortname;
+    }
+
+    public function setShortname(string $shortname): self
+    {
+        $this->shortname = $shortname;
         return $this;
     }
 
@@ -58,9 +68,8 @@ class MusicStyles
     {
         if (!$this->artists->contains($artist)) {
             $this->artists->add($artist);
-            $artist->setMusicStyles($this);
+            $artist->setCountry($this);
         }
-
         return $this;
     }
 
@@ -68,12 +77,12 @@ class MusicStyles
     {
         if ($this->artists->removeElement($artist)) {
             // set the owning side to null (unless already changed)
-            if ($artist->getMusicStyles() === $this) {
-                $artist->setMusicStyles(null);
+            if ($artist->getCountry() === $this) {
+                $artist->setCountry(null);
             }
         }
-
         return $this;
     }
 
+    
 }

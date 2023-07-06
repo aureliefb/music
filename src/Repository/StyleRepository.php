@@ -7,14 +7,14 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<MusicStyles>
+ * @extends ServiceEntityRepository<Style>
  *
- * @method MusicStyles|null find($id, $lockMode = null, $lockVersion = null)
- * @method MusicStyles|null findOneBy(array $criteria, array $orderBy = null)
- * @method MusicStyles[]    findAll()
- * @method MusicStyles[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Style|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Style|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Style[]    findAll()
+ * @method Style[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MusicStylesRepository extends ServiceEntityRepository
+class StyleRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -40,9 +40,9 @@ class MusicStylesRepository extends ServiceEntityRepository
     }
 
     public function getChoices() {
-        $choices = $this->createQueryBuilder('m')
-            ->select('m.id', 'm.style')
-            ->orderBy('m.style', 'ASC')
+        $choices = $this->createQueryBuilder('s')
+            ->select('s.id', 's.style')
+            ->orderBy('s.style', 'ASC')
             ->getQuery()
             ->getResult();
 
@@ -50,28 +50,29 @@ class MusicStylesRepository extends ServiceEntityRepository
         foreach ($choices as $k => $v) {
             $arr[$v["style"]] = $v["id"];
         }
-        return $arr;
+        //dump($choices);
+        return $choices;
     }
 
 //    /**
-//     * @return MusicStyles[] Returns an array of MusicStyles objects
+//     * @return Style[] Returns an array of Style objects
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
+//        return $this->createQueryBuilder('s')
+//            ->andWhere('s.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
+//            ->orderBy('s.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?MusicStyles
+//    public function findOneBySomeField($value): ?Style
 //    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
+//        return $this->createQueryBuilder('s')
+//            ->andWhere('s.exampleField = :val')
 //            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()

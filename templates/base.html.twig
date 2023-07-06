@@ -27,13 +27,13 @@
                         <a class="nav-link" href="{{ path('app_groupes') }}">Artistes & Groupes</a>
                     </li>
                     <li class="nav-item text-center">
-                        <a class="nav-link" href="{{ path('app_concerts') }}"><img src="{{ asset('icons/mic.svg') }}" alt="" width="15px"/> Concerts</a>
+                        <a class="nav-link" href="{{ path('app_concerts') }}"><!--img src="{{ asset('icons/mic.svg') }}" alt="" width="15px"/--> Concerts</a>
                     </li>
                     <li class="nav-item text-center">
                         <a class="nav-link" href="{{ path('app_albums') }}">Discothèque</a>
                     </li>
                     <li class="nav-item text-center dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="{{ asset('icons/tools.svg') }}" alt="" width="15px"/> Admin</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false"><!--img src="{{ asset('icons/tools.svg') }}" alt="" width="15px"/--> Admin</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{{ path('admin_groupes_index') }}">Artistes & Groupes</a></li>
                             <li><a class="dropdown-item" href="{{ path('admin_albums_index') }}">Discothèque</a></li>
@@ -87,7 +87,6 @@
                     <div class="card py-5 text-center">
                         <div class="card-body">
                             <div class="card-title">
-                                <img src="{{ asset('icons/mic.svg') }}" alt="" width="30px"/>
                                 <h2>Concerts</h2>
                             </div>
                         </div>

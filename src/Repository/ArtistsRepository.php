@@ -44,12 +44,14 @@ class ArtistsRepository extends ServiceEntityRepository
     }
 
     public function findMyChoice(ArtistSearch $search) {
-        $query =  $this->createQueryBuilder('a');
+        $query =  $this->createQueryBuilder('a')
+                //->select('a', 'm')
+                ;
 
         if($search->getArtistName() != '' || $search->getMusicStyle() != '') {
             if($search->getArtistName()) {
                 $query = $query
-                    ->leftJoin('App\Entity\MusicStyles', 'm', Join::WITH, 'm.id_music_styles = a.id_music_styles')
+                    ->leftJoin('App\Entity\MusicStyles', 'm', Join::WITH, 'm.id = a.id_music_styles')
                     ->where("a.artist like concat('%', :name, '%')")
                     ->setParameter(":name", $search->getArtistName())
                     ->orderBy('a.artist', 'ASC');

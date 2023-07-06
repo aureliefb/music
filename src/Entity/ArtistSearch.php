@@ -10,6 +10,7 @@ class ArtistSearch {
 
 	private $artistName;
     private $musicStyle;
+    private $idMusicStyle;
 
     public function setArtistName(string $artistName): self
     {
@@ -33,6 +34,15 @@ class ArtistSearch {
         return $this->musicStyle;
     }
 
-    
+    public function setIdMusicStyle(string $idMusicStyle): self
+    {
+        $this->idMusicStyle = $idMusicStyle;
+        return $this;
+    }
+
+    public function getIdMusicStyle(): ?string
+    {
+        return $this->idMusicStyle;
+    }
 
 }

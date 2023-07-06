@@ -3,11 +3,11 @@
 namespace App\Controller\admin;
 
 use App\Entity\Artists;
-use App\Entity\MusicStyles;
+use App\Entity\Style;
 use App\Form\ArtistType;
 use App\Form\MusicStyleType;
 use App\Repository\ArtistsRepository;
-use App\Repository\MusicStylesRepository;
+use App\Repository\StyleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class AdminArtistsController extends AbstractController
 {
 
-    public function __construct(ArtistsRepository $repo, MusicStylesRepository $repo_styles) {
+    public function __construct(ArtistsRepository $repo, StyleRepository $repo_styles) {
         $this->repo = $repo;
         $this->repo_styles = $repo_styles;
     }
@@ -61,8 +61,7 @@ class AdminArtistsController extends AbstractController
                 }
 
                 $bands->setFilename($newFilename);
-                //$bands->setIdStyle();
-                //$bands->setUpdatedAt();
+                //$bands->setIdMusicStyles();
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($bands);
@@ -81,7 +80,10 @@ class AdminArtistsController extends AbstractController
     public function new(Request $request) {
         $band = new Artists();
         $form_new = $this->createForm(ArtistType::class, $band);
+        dump($form_new);
         $form_new->handleRequest($request);
+
+
         if($form_new->isSubmitted() && $form_new->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($band);

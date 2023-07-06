@@ -1,6 +1,6 @@
 {{ form_start(form) }}
 <div class="row">
-    <div class="col-md-5">{{ form_row(form.music_style) }}</div>
+    <div class="col-md-5">{{ form_row(form.style) }}</div>
     {#% for label, value in field_choices(form.styles) %}
                 <option value="{{ value }}">{{ label }}</option>
             {% endfor %#}

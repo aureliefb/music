@@ -30,7 +30,7 @@ class ArtistsController extends AbstractController
         $form = $this->createForm(ArtistSearchType::class, $search);
         $form->handleRequest($req);
         $query = $this->repo->findMyChoice($search);
-        //dump($query);
+        dump($query);
         $bands = $paginator->paginate(
             $query,
             $req->query->getInt('page', 1),
@@ -47,6 +47,7 @@ class ArtistsController extends AbstractController
     #[Route('/artists/{id}', name: 'app_groupes_show')]
     public function show(Artists $band, PaginatorInterface $paginator, Request $req): Response
     {
+        dump($band);
         return $this->render('artists/show.html.twig', [
             'band' => $band
         ]);

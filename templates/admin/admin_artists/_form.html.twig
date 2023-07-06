@@ -1,11 +1,7 @@
 {{ form_start(form) }}
 <div class="row">
     <div class="col-xs-3 col-md-6 col-lg-4">{{ form_row(form.artist) }}</div>
-
-    {# % for label, value in field_choices(form.musicStyle) %}
-        <option value="{{ value }}">{{ label }}</option>
-    {% endfor %#}
-    <div class="col-md-4">{{ form_row(form.id_style) }}</div>
+    <div class="col-md-4">{{ form_row(form.style) }}</div>
     <div class="col-md-4">{{ form_row(form.filename) }}</div>
 </div>
 

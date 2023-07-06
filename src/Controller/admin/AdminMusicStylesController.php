@@ -2,9 +2,9 @@
 
 namespace App\Controller\admin;
 
-use App\Entity\MusicStyles;
+use App\Entity\Style;
 use App\Form\MusicStyleType;
-use App\Repository\MusicStylesRepository;
+use App\Repository\StyleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +13,7 @@ use Knp\Component\Pager\PaginatorInterface;
 
 class AdminMusicStylesController extends AbstractController
 {
-    public function __construct(MusicStylesRepository $repo) {
+    public function __construct(StyleRepository $repo) {
         $this->repo = $repo;
     }
 
@@ -22,7 +22,7 @@ class AdminMusicStylesController extends AbstractController
     {
         //$styles = $this->repo->findBy(array(), array('music_style'=>'ASC'));
         $styles = $paginator->paginate(
-            $this->repo->findBy(array(), array('music_style'=>'ASC')),
+            $this->repo->findBy(array(), array('style'=>'ASC')),
             $req->query->getInt('page', 1),
             6
         );
@@ -32,7 +32,7 @@ class AdminMusicStylesController extends AbstractController
     }
 
     #[Route('/afadmin/styles/edit/{id}', name: 'admin_styles_edit', methods: ['GET', 'POST'])]
-    public function edit(MusicStyles $style, Request $request) {
+    public function edit(Style $style, Request $request) {
         $form_edit = $this->createForm(MusicStyleType::class, $style);
         $form_edit->handleRequest($request);
         if($form_edit->isSubmitted() && $form_edit->isValid()) {
@@ -48,7 +48,7 @@ class AdminMusicStylesController extends AbstractController
 
     #[Route('/afadmin/styles/new', name: 'admin_styles_new')]
     public function new(Request $request) {
-        $style = new MusicStyles();
+        $style = new Style();
         $form_new = $this->createForm(MusicStyleType::class, $style);
         $form_new->handleRequest($request);
         if($form_new->isSubmitted() && $form_new->isValid()) {
@@ -64,7 +64,7 @@ class AdminMusicStylesController extends AbstractController
     }
 
     #[Route('/afadmin/styles/del/{id}', name: 'admin_styles_delete', methods: ['DELETE'])]
-    public function delete(MusicStyles $styles, Request $request) {
+    public function delete(Style $styles, Request $request) {
         if($this->isCsrfTokenValid('delete'.$styles->getId(), $request->get('_token'))) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($styles);

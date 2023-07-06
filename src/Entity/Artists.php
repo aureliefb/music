@@ -35,13 +35,18 @@ class Artists
     /*#[ORM\Column]
     private ?DateTime $updated_at = null;*/
 
-    #[ORM\Column(nullable: true)]
-    private ?int $id_style = null;
+    /*#[ORM\ManyToOne(inversedBy: 'artists', targetEntity: MusicStyles::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?MusicStyles $musicStyles = null;*/
 
-    #[ORM\ManyToOne(inversedBy: 'artists', targetEntity: MusicStyles::class)]
-    #[ORM\JoinColumn(nullable: false, name:'id_music_styles', referencedColumnName:'id_music_styles')]
-    private ?MusicStyles $style = null;
-    
+    #[ORM\ManyToOne(inversedBy: 'artists')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Country $country = null;
+
+    #[ORM\ManyToOne(inversedBy: 'artist', targetEntity: Style::class)]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Style $style = null;
+
 
     public function getId(): ?int
     {
@@ -106,23 +111,34 @@ class Artists
         return $this;
     }*/
 
-    public function getIdStyle(): ?int
+    /*public function getMusicStyles(): ?MusicStyles
     {
-        return $this->id_style;
+        return $this->musicStyles;
     }
 
-    public function setIdStyle(?int $id_style): self
+    public function setMusicStyles(?MusicStyles $musicStyles): self
     {
-        $this->id_style = $id_style;
+        $this->musicStyles = $musicStyles;
+        return $this;
+    }*/
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
         return $this;
     }
 
-    public function getStyle(): ?MusicStyles
+    public function getStyle(): ?Style
     {
         return $this->style;
     }
 
-    public function setStyle(?MusicStyles $style): self
+    public function setStyle(?Style $style): self
     {
         $this->style = $style;
         return $this;
