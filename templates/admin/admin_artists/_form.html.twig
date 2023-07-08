@@ -1,8 +1,9 @@
 {{ form_start(form) }}
 <div class="row">
-    <div class="col-xs-3 col-md-6 col-lg-4">{{ form_row(form.artist) }}</div>
-    <div class="col-md-4">{{ form_row(form.style) }}</div>
-    <div class="col-md-4">{{ form_row(form.filename) }}</div>
+    <div class="col-xs-3 col-md-6 col-lg-3">{{ form_row(form.artist) }}</div>
+    <div class="col-xs-3 col-md-4 col-lg-4 col-xl-2">{{ form_row(form.style) }}</div>
+    <div class="col-xs-3 col-md-4 col-lg-4 col-xl-2">{{ form_row(form.country) }}</div>
+    <div class="col-xs-3 col-md-6 col-lg-4">{{ form_row(form.filename) }}</div>
 </div>
 
 <button class="btn btn-primary btn-sm">{{ button|default('Enregistrer') }}</button>

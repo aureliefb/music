@@ -39,6 +39,20 @@ class CountryRepository extends ServiceEntityRepository
         }
     }
 
+    public function getChoices() {
+        $choices = $this->createQueryBuilder('c')
+            ->select('c.country', 'c.id')
+            ->orderBy('c.country', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        $arr = [];
+        foreach ($choices as $k => $v) {
+            $arr[$v["country"]] = $v["id"];
+        }
+        return $arr;
+    }
+
 //    /**
 //     * @return Country[] Returns an array of Country objects
 //     */

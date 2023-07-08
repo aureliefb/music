@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Artists;
 use App\Repository\StyleRepository;
+use App\Repository\CountryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -13,25 +14,34 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ArtistType extends AbstractType
 {
-    private $repo;
+    private $style_repo;
+    private $country_repo;
 
-    public function __construct(StyleRepository $repo) {
-        $this->repo =  $repo;
+    public function __construct(StyleRepository $style_repo, CountryRepository $country_repo) {
+        $this->style_repo =  $style_repo;
+        $this->country_repo =  $country_repo;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('artist', TextType::class, [
-                'label' => false,
+                'required' => true,
+                'label' => 'Nom',
                 'attr' => [
-                    'placeholder' => 'Saisir nouveau groupe ou artiste'
+                    'placeholder' => 'Saisir groupe ou artiste'
                 ]
             ])
             ->add('style', ChoiceType::class, [
-                'label' => false,
-                'choices' => $this->repo->getChoices(),
+                'required' => false,
+                'label' => 'Style',
+                'choices' => $this->style_repo->getChoices(),
                 'placeholder' => 'Choisir un style'
+            ])
+            ->add('country', ChoiceType::class, [
+                'label' => 'Pays',
+                'choices' => $this->country_repo->getChoices(),
+                'placeholder' => 'Choisir un pays'
             ])
             ->add('filename', FileType::class, [
                 'label' => 'Charger une image',

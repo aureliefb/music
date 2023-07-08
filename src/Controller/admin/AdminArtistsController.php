@@ -79,20 +79,29 @@ class AdminArtistsController extends AbstractController
     #[Route('/afadmin/artists/new', name: 'admin_groupes_new')]
     public function new(Request $request) {
         $band = new Artists();
-        $form_new = $this->createForm(ArtistType::class, $band);
-        dump($form_new);
-        $form_new->handleRequest($request);
+        $form_band_new = $this->createForm(ArtistType::class, $band);
+        
+        $form_band_new->handleRequest($request);
 
+        /*$style = new Style();
+        $form_style_new = $this->createForm(MusicStyleType::class, $style);
+        dump($form_style_new);*/
 
-        if($form_new->isSubmitted() && $form_new->isValid()) {
+        if( $form_band_new->isSubmitted() && $form_band_new->isValid() /*&& ($form_style_new->isSubmitted() && $form_style_new->isValid())*/ ) {
+            dump('là');
+            dump($band);
             $em = $this->getDoctrine()->getManager();
             $em->persist($band);
-            $em->flush();
+           // $em->persist($style);
+            //$em->flush();
             return $this->redirectToRoute('admin_groupes_index');
+        } else {
+            dump('ici');
+            dump($form_band_new);
         }
         return $this->render('admin/admin_artists/new.html.twig', [
             'band' => $band,
-            'form' => $form_new->createView()
+            'form' => $form_band_new->createView()
         ]);
     }
 

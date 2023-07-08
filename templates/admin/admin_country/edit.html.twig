@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pays{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h2>Modifier le pays <i>{{ country.country }}</i></h2>
+        {{ include('admin/admin_country/_form.html.twig', {button: 'Modifier'}) }}
+
+    </div>
+{% endblock %}

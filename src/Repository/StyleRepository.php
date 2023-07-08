@@ -41,7 +41,7 @@ class StyleRepository extends ServiceEntityRepository
 
     public function getChoices() {
         $choices = $this->createQueryBuilder('s')
-            ->select('s.id', 's.style')
+            ->select('s.style', 's.id')
             ->orderBy('s.style', 'ASC')
             ->getQuery()
             ->getResult();
@@ -51,7 +51,7 @@ class StyleRepository extends ServiceEntityRepository
             $arr[$v["style"]] = $v["id"];
         }
         //dump($choices);
-        return $choices;
+        return $arr;
     }
 
 //    /**
